@@ -6,6 +6,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
 
+Route::get('/index', [FaqController::class, 'search'])->name('faqs.index');
 
 Route::get('/', [FaqController::class, 'search'])->name('faq.search');
 Route::get('/faqs/special', [FaqController::class, 'listSpecialFaqs'])->name('faqs.special');

@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage FAQs</title>
 
-    <!-- Bootstrap CSS -->
+    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Custom CSS -->
-    <link href="{{ asset('css/admin_index.css') }}" rel="stylesheet"> <!-- Load your custom CSS -->
+   
+    <link href="{{ asset('css/admin_index.css') }}" rel="stylesheet"> 
 
 </head>
 <body>
 
 <div class="container">
+    
     <h1>Manage FAQs</h1>
 
     <button class="btn btn-primary mb-3" id="addFaqButton">Add FAQ</button>
 
-    <!-- FAQ Table -->
+    
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -52,7 +53,7 @@
 
 </div>
 
-<!-- Add FAQ Modal -->
+
 <div class="modal fade" id="addFaqModal" tabindex="-1" role="dialog" aria-labelledby="addFaqModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -63,23 +64,23 @@
                 </button>
             </div>
             <div class="modal-body" id="faqFormContainer">
-                <!-- AJAX loaded form will be inserted here -->
+               
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap and jQuery JS -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Custom JS -->
-<script src="{{ asset('js/script.js') }}"></script> <!-- Load your custom JS -->
+
+<script src="{{ asset('js/script.js') }}"></script> 
 
 <script>
     $(document).ready(function() {
         $('#addFaqButton').click(function() {
-            // Load the FAQ creation form via AJAX
+           
             $.ajax({
                 url: '{{ route("admin.faqs.create.form") }}',
                 method: 'GET',

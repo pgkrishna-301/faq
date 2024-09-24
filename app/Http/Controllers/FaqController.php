@@ -1,6 +1,6 @@
 <?php
 
-// app/Http/Controllers/FaqController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
@@ -16,20 +16,19 @@ class FaqController extends Controller
     }
    public function showCreateForm()
 {
-    $faqTypes = \App\Models\FaqType::all(); // Assuming you have a FaqType model
+    $faqTypes = \App\Models\FaqType::all(); 
     return view('admin.faqs.create', compact('faqTypes'));
 }
 public function create(Request $request)
 {
     $request->validate([
-        'faq_type' => 'required|string|max:255', // Validate the string
+        'faq_type' => 'required|string|max:255', 
         'display_name' => 'required|string|max:255',
         'description' => 'required|string',
     ]);
 
-    // Create the FAQ entry
     Faq::create([
-        'faq_type' => $request->faq_type, // Store the string value directly
+        'faq_type' => $request->faq_type, 
         'display_name' => $request->display_name,
         'description' => $request->description,
     ]);
@@ -40,11 +39,10 @@ public function create(Request $request)
 public function search(Request $request)
 {
     $searchTerm = $request->get('query');
-    
-    // Searching FAQs based on the display name
+   
     $faqs = Faq::where('display_name', 'LIKE', "%{$searchTerm}%")
                 ->orWhere('description', 'LIKE', "%{$searchTerm}%")
-                ->get(['display_name', 'description']); // Get only necessary fields
+                ->get(['display_name', 'description']);  
 
     if ($request->ajax()) {
         return response()->json($faqs);
@@ -83,29 +81,28 @@ public function search(Request $request)
 
     public function update(Request $request, $id)
 {
-    // Validate the input
+    
     $request->validate([
         'display_name' => 'required|string|max:255',
         'description' => 'required|string',
-        'faq_type' => 'required', // No need to validate as integer since it can be string
+        'faq_type' => 'required', 
     ]);
 
-    // Find the FAQ by ID
+
     $faq = Faq::findOrFail($id);
     
-    // Update the FAQ with all the request data
+    
     $faq->update($request->all());
 
-    // Redirect to the FAQ index page after successful update
+    
     return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully!');
 }
 
     public function listSpecialFaqs()
     {
-        // Retrieve FAQs where faq_type is either 'Glossary' or 'Abbreviation'
+        
         $faqs = Faq::whereIn('faq_type', ['Glossary', 'Abbreviation'])->get();
 
-        // Return a view, passing the retrieved FAQs to the view
         return view('faqs.special', ['faqs' => $faqs]);
     }
 
@@ -113,10 +110,10 @@ public function search(Request $request)
 {
     $faq = Faq::findOrFail($id);
 
-    // Delete the FAQ
+    
     $faq->delete();
 
-    // Redirect back to the FAQ index page with a success message
+   
     return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully!');
 }
 

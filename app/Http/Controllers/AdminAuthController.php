@@ -17,13 +17,13 @@ class AdminAuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|confirmed',
         ]);
 
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password, // Store as plain text
+            'password' => $request->password, 
         ]);
 
         return redirect()->route('admin.login.form')->with('success', 'Registration successful!');
@@ -43,7 +43,7 @@ class AdminAuthController extends Controller
     $admin = Admin::where('email', $request->email)->first();
 
     if ($admin && $admin->password === $request->password) {
-        Auth::login($admin); // Manually log in
+        Auth::login($admin); 
         return redirect()->route('admin.faqs.index');
     }
 
